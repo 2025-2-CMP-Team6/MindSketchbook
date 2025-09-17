@@ -8,8 +8,6 @@ final int STATE_LIBRARY = 2;
 final int STATE_CREATOR = 3;
 int currentState = STATE_MENU; // 앱 시작 시 메뉴 화면으로 설정
 
-// 버튼 이미지 
-PImage startBtnNormal, startBtnHover;
 boolean isMouseOverStartBtn = false; // 마우스가 버튼 위에 있는지 확인
 
 PFont myFont; // 1. 폰트를 담을 변수를 전역으로 선언
@@ -28,8 +26,6 @@ PImage happyStickerImg;
 PImage sadStickerImg;
 
     imageMode(CENTER);
-startBtnNormal = loadImage("button_start_normal.png");
-startBtnHover = loadImage("button_start_hover.png");
   stickerLibrary = new ArrayList<Sticker>();
   placedStickers = new ArrayList<Sticker>();
   
@@ -97,5 +93,14 @@ void mousePressed() {
 void mouseReleased() {
   if (currentState == STATE_DIARY) {
     handleDiaryRelease();
+  }
+}
+
+boolean mouseHober(int x, int y, int w, int h) {
+  if ((mouseY > y && mouseY < y+h) && (mouseX > x && mouseX < x+w)) {
+    return true;
+  }
+  else {
+    return false;
   }
 }

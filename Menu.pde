@@ -12,18 +12,20 @@ void drawMenu() {
 // 버튼 영역 확인
   float btnX = width/2;
   float btnY = height/2 + 50;
-  float btnW = startBtnNormal.width;
-  float btnH = startBtnNormal.height;
+  float btnW = 400;
+  float btnH = 100;
   
   isMouseOverStartBtn = (mouseX > btnX - btnW/2 && mouseX < btnX + btnW/2 &&
                          mouseY > btnY - btnH/2 && mouseY < btnY + btnH/2);
   
-  // 마우스 위치에 따라 다른 이미지 그리기
+  // 마우스 위치에 따라 다른 색 그리기
+  rectMode(CENTER);
   if (isMouseOverStartBtn) {
-    image(startBtnHover, btnX, btnY);
+    fill(150,150,150);
   } else {
-    image(startBtnNormal, btnX, btnY);
+    fill(200,200,200);
   }
+  rect(btnX,btnY,btnW,btnH,130);
 }
 
 void handleMenuMouse() {

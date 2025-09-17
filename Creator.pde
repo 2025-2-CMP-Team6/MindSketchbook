@@ -2,25 +2,34 @@
 // Owner: [Team Member's Name]
 
 PGraphics stickerCanvas; // 스티커를 그릴 보이지 않는 캔버스(투명 종이)
-int canvasSize = 720; // 정사각형 캔버스 크기
+int canvasSize = 680; // 정사각형 캔버스 크기
 int canvasX, canvasY; // 캔버스가 그려질 화면상의 위치
 color selectedColor = color(0); // 현재 선택된 그리기 색상
 float brushSize = 20; // 브러시 크기
+// 컬러 팔레트
+int[] colorPos = new int [2]; // 색의 좌표
+int[] colorSize = new int [2]; // 색의 크기
+color[] paletColor = new int [8]; // 팔레트 저장 색
+boolean colorToggle = false;
+
+
+
+
 
 // 이 함수는 setup() 또는 '새 스티커 만들기' 버튼을 누를 때 호출됩니다.
 void setupCreator() {
-  // 화면과 똑같은 크기의 그래픽 버퍼를 생성
+  // 전사각형 크기의 그래픽 버퍼를 생성
   stickerCanvas = createGraphics(canvasSize, canvasSize);
-  canvasX = (width - canvasSize) / 2; // (1280 - 720) / 2 = 280
-  canvasY = (height - canvasSize) / 2; // (720 - 720) / 2 = 0
+  canvasX = (width - canvasSize) / 2; 
+  canvasY = (height - canvasSize) / 2; 
   stickerCanvas.beginDraw();
-  stickerCanvas.background(255, 0); // 중요: 완전히 투명한 배경으로 시작
+  stickerCanvas.background(255); // 중요: 완전히 투명한 배경으로 시작
   stickerCanvas.endDraw();
 }
 
 void drawCreator() {
   imageMode(CORNER); // <<< 추가 (캔버스를 (0,0)에 제대로 그리기 위함)
-  background(50); // 어두운 배경
+  background(225); // 어두운 배경
   // 중앙에 정사각형 캔버스 그리기
   image(stickerCanvas, canvasX, canvasY);
   
@@ -28,10 +37,9 @@ void drawCreator() {
 
   // --- UI 그리기 ---
   // 팔레트
-  fill(0); rect(50, 50, 50, 50);
-  fill(255, 0, 0); rect(50, 110, 50, 50);
-  fill(0, 0, 255); rect(50, 170, 50, 50);
-
+  fill(0);
+  rectMode(CENTER);
+  rect(colorPos[0], colorPos[1], colorSize[0], colorSize[1]);
   // '저장' 버튼
   fill(150, 255, 150); rect(width - 100, 50, 150, 50);
   fill(0); textSize(25); text("저장", width - 100, 50);
@@ -39,14 +47,8 @@ void drawCreator() {
 
 void handleCreatorMouse() {
   // 색상 선택
-  if (mouseY > 25 && mouseY < 75) {
-    if (mouseX > 25 && mouseX < 75) selectedColor = color(0);
-    if (mouseX > 85 && mouseX < 135) selectedColor = color(255, 0, 0);
-    if (mouseX > 145 && mouseX < 195) selectedColor = color(0, 0, 255);
-  }
-
   // '저장' 버튼 클릭
-  if (mouseX > width - 175 && mouseX < width - 25 && mouseY > 25 && mouseY < 75) {
+  if (mouseHober(width - 175, 25, 150, 50)) {
     // 1. 현재까지 그린 캔버스를 PImage로 변환
     PImage newStickerImg = stickerCanvas.get();
     // 2. 새 스티커 객체 생성
@@ -59,10 +61,10 @@ void handleCreatorMouse() {
 }
 
 
+
 void handleCreatorDrag() {
   // 마우스가 캔버스 안쪽에 있을 때만 그리도록 제한
-  if (mouseX > canvasX && mouseX < canvasX + canvasSize &&
-      mouseY > canvasY && mouseY < canvasY + canvasSize) {
+  if (mouseHober(canvasX, canvasY, canvasSize, canvasSize)) {
     
     // 화면 좌표를 캔버스 내부 좌표로 변환
     float canvasMouseX = mouseX - canvasX;
