@@ -1,5 +1,4 @@
 // Menu.pde
-// Owner: [Team Member's Name]
 
 void drawMenu() {
   background(200, 230, 255); // 밝은 하늘색 배경
@@ -15,8 +14,7 @@ void drawMenu() {
   float btnW = 400;
   float btnH = 100;
   
-  isMouseOverStartBtn = (mouseX > btnX - btnW/2 && mouseX < btnX + btnW/2 &&
-                         mouseY > btnY - btnH/2 && mouseY < btnY + btnH/2);
+  isMouseOverStartBtn = mouseHober(btnX - btnW/2, btnY - btnH/2, btnW, btnH);
   
   // 마우스 위치에 따라 다른 색 그리기
   rectMode(CENTER);
