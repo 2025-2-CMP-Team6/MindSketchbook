@@ -98,6 +98,9 @@ void mouseReleased() {
   if (currentState == STATE_DIARY) {
     handleDiaryRelease();
   }
+  if (currentState == STATE_CREATOR) {
+    handleCreatorRelease();
+  }
 }
 // 마우스 호버링
 boolean mouseHober(float x, float y, float w, float h) {

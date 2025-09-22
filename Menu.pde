@@ -7,7 +7,7 @@ void drawMenu() {
   fill(0);
   textAlign(CENTER, CENTER);
   textSize(50);
-  text("마음 스케치북", width/2, height/3);
+  text("Mind SketchBook", width/2, height/3);
 // 버튼 영역 확인
   float btnX = width/2;
   float btnY = height/2 + 50;
